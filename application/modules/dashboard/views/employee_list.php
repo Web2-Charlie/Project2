@@ -4,7 +4,7 @@
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
                     class="fas fa-user-secret me-2"></i>Admin</div>
             <div class="list-group list-group-flush my-3">
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+                <a href="index" class="list-group-item list-group-item-action bg-transparent second-text active"><i
                         class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
                 <a href="get_Task" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-project-diagram me-2"></i>Task</a>
@@ -12,7 +12,7 @@
                         class="fas fa-chart-line me-2"></i>Analytics</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-paperclip me-2"></i>Reports</a>
-                <a href="get_Employee" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-user-friends me-2"></i>Employee</a>
                 <!--<a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-gift me-2"></i>Products</a>
@@ -93,19 +93,8 @@
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">
-                                    <?php 
-                                        $count = 0;
-                                        foreach($tasklist as $task):
-                                            if(strtolower($task['task_status']) == strtolower('Completed')) $count++;
-                                            else continue;
-                                        endforeach;
-                                        echo $count;
-                                    ?>
-                                </h3>
-                                <p class="fs-5">
-                                    Finish Task
-                                </p>
+                                <h3 class="fs-2">0</h3>
+                                <p class="fs-5">Finish Task</p>
                             </div>
                             <i
                                 class="fas fa-tasks primary-text border rounded-full secondary-bg p-3"></i>
@@ -132,7 +121,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="container-fluid px-4">
                 <div class="row my-5">
                     <h3 class="fs-4 mb-3">Employee</h3>
                     <div class="col">
@@ -187,37 +178,6 @@
                         </table>
                     </div>
                 </div>
-                <?php $val = array(860,1140,1060,1060,1070,1110,1330,2210,7830,2478);
-                    $data = array_values($val);
-                ?>
-                <canvas id="myChart" style="width:100%;max-width:1600px;max-height: 1800px;"></canvas>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-                <script>
-                    var xValues = [100,200,300,400,500,600,700,800,900,1000];
-
-                    new Chart("myChart", {
-                    type: "line",
-                    data: {
-                        labels: xValues,
-                        datasets: [{ 
-                        data: <?php echo json_encode($data) ?>,
-                        borderColor: "red", //Pending Task
-                        fill: false,
-                        },{ 
-                        data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
-                        borderColor: "green", // Completed Task
-                        fill: true
-                        }, { 
-                        data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
-                        borderColor: "blue", //In Progress task
-                        fill: false
-                        }]
-                    },
-                    options: {
-                        legend: {display: false}
-                    }
-                    });
-                </script>
             </div>
    
         </div>
