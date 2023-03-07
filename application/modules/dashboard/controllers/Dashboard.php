@@ -86,10 +86,15 @@ class Dashboard extends MY_Controller{
 
 
     public function delete_Employee() {
-        $where = array(
-            'id' => $_POST['id']
+
+        echo '<pre>';
+        print_r($_POST['userid']);
+        exit;
+        
+        $param['where'] = array(
+            'id' => $_POST['userid']
         );
-        delete('user',$where);
+        delete('user',$param);
     }
 
 
@@ -104,6 +109,16 @@ class Dashboard extends MY_Controller{
         $this->load_page('employee_list',$param);
     }
 
+    // public function delete(){
+    //     $param['where'] = array(
+    //         'id' => $_POST['userid']
+    //     );
+    //     delete('user',$param);
+    // }
+
+    // public function delete() {
+    //     echo 'Delete me if you can';
+    // }
 
     // public function get_Month() {
     //     $data = EXTRACT(Month from assigned_date) as month, FROM task;

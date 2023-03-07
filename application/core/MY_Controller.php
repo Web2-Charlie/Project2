@@ -9,13 +9,12 @@ class MY_Controller extends MX_Controller {
 		design of the page and for javascript file*/
 		
 		'dashboard' => array(
-			'css' => array('admin.css'),
-			'js' => array('main.js'),
+			'css' => array('dashboard.css'),
+			'js' => array('dashboard.js'),
 		) ,
-
 		'login' => array(
-			'css' => array('admin.css'),
-			'js' => array('main.js'),
+			'css' => array('login.css'),
+			'js' => array('login.js'),
 		) ,
 
 	);
