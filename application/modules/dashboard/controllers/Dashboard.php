@@ -38,6 +38,14 @@ class Dashboard extends MY_Controller{
                 </script>
             ';
         }
+        else{
+            echo '
+                <script>
+                    alert("There was an error"); 
+                    window.location.replace("index");
+                </script>
+            ';
+        }
 
     }
 
@@ -65,8 +73,23 @@ class Dashboard extends MY_Controller{
                 </script>
             ';
         }
+        else{
+            echo '
+                <script>
+                    alert("There was an error"); 
+                    window.location.replace("index");
+                </script>
+            ';
+        }
     }
 
+    // public function get_EmpDetail() {
+    //     $param['select'] = 'lastname, firstname, email, username, password';
+    //     $param['where'] = array(
+    //         'id' => $_GET['userid']
+    //     );
+    //     $data['employee'] = getrow('user',$param,'array');
+    // }
 
     public function edit_Profile() {
         //add code
@@ -74,27 +97,39 @@ class Dashboard extends MY_Controller{
             'lastname' => $_POST['lname'],
             'firstname' => $_POST['fname'],
             'email' => $_POST['email'],
-            'username' => $_POST['username'],
+            'username' => $_POST['uname'],
             'password' => $_POST['password'],
-            'user_type' => 'user'
         );
         $where = array(
-            'id' => $_POST['user_id']
+            'id' => $_POST['userid']
         );
-        update('user', $set, $where);
+        $res = update('user', $set, $where);
+        if($res) {
+            echo '
+                <script>
+                    alert("Employee is successfully Updated"); 
+                    window.location.replace("index");
+                </script>
+            ';
+        }
+        else{
+            echo '
+                <script>
+                    alert("There was an error"); 
+                    window.location.replace("index");
+                </script>
+            ';
+        }
     }
 
 
     public function delete_Employee() {
-
-        echo '<pre>';
-        print_r($_POST['userid']);
-        exit;
+        // echo "<pre>";
+        // print_r($data);
+        // die;
+        $where = array('id' => $_POST['userid']);
+        $res = delete('user',$where);
         
-        $param['where'] = array(
-            'id' => $_POST['userid']
-        );
-        delete('user',$param);
     }
 
 
@@ -108,22 +143,5 @@ class Dashboard extends MY_Controller{
         $param['users'] = getrow('user','','array');
         $this->load_page('employee_list',$param);
     }
-
-    // public function delete(){
-    //     $param['where'] = array(
-    //         'id' => $_POST['userid']
-    //     );
-    //     delete('user',$param);
-    // }
-
-    // public function delete() {
-    //     echo 'Delete me if you can';
-    // }
-
-    // public function get_Month() {
-    //     $data = EXTRACT(Month from assigned_date) as month, FROM task;
-    //     json($data, $isJson = true);
-    // }
-
 
 }
