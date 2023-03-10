@@ -17,6 +17,11 @@ class MY_Controller extends MX_Controller {
 			'js' => array('login.js'),
 		) ,
 
+		'home' => array(
+			'css' => array('home.css'),
+			'js' => array('home.js'),
+		),
+
 	);
 	
 	public function __construct(){

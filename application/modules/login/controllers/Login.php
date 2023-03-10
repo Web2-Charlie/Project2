@@ -13,21 +13,20 @@ class Login extends MY_Controller{
 
         $uname = $_POST['username'];
         $pass = $_POST['password'];
-        $param['select'] = 'firstname, lastname, username, password, user_type';
-        //$param['where'] = "username = '$uname' AND password = '$pass'";
+        $param['select'] = '*';
         $param['where'] = array(
             'username' => $uname,
-            'password' => $pass
+            'password' => md5($pass),
+            'user_status' => 1
         );
         $res = getrow('user',$param,'row');
-        // $res[0]['user_type']
-
-        $_SESSION['username'] = $uname;
         if(!empty($res)) {
-            $res->user_type == 'user' ? redirect(base_url().'dashboard/index') : redirect(base_url().'dashboard/index'); 
+            $_SESSION['username'] = $res->lastname . ' ' . $res->firstname;
+            $_SESSION['userid'] = $res->id;
+            $res->user_type == 'admin' ? redirect(base_url().'dashboard/index') : redirect(base_url().'home/index'); 
         }
-        else {
-            echo '<script> alert("Username or Password is Incorect"); window.location.replace("index")</script>';
+         else {
+           echo '<script> alert("Username or Password is Incorect"); window.location.replace("login")</script>';
         }
     }
 

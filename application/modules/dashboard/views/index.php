@@ -19,17 +19,17 @@
                     
                     Task
                     
-                    </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <iclass="fas fa-chart-line me-2"></i>
+                </a>
+                <!-- <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <i class="bi bi-paperclip"></i>
                     
                     Analytics
                 
-                </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                </a> -->
+                <a href="attachment" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="fas fa-paperclip me-2"></i>
 
-                        Reports
+                        Attachment
                     
                     </a>
                 <a href="get_Employee" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
@@ -95,6 +95,18 @@
                                 <span>
 
                                     Task
+
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary m-1" data-bs-toggle="modal" href="#addfile" role="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
+                                    <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
+                                </svg>
+                                <span>
+
+                                    File
 
                                 </span>
                             </a>
@@ -205,15 +217,16 @@
                 <div class="row my-5">
                     <h3 class="fs-4 mb-3">Employee</h3>
                     <div class="col">
-                            <?php $count = 0; ?>
-                            <table class="table bg-white rounded shadow-sm  table-hover>
+                            <?php $count = 1; ?>
+                            <table class="table bg-white rounded shadow-sm  table-hover">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Lastname</th>
-                                    <th scope="col">Firstname</th>
+                                    <th scope="col">#</th>
                                     <th scope="col">Lastname</th>
                                     <th scope="col">Firstname</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Employee Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
@@ -221,27 +234,36 @@
                             <?php
                                 foreach($users as $user): ?>
                                     <tr id="<?=$user['id']?>"></tr>
+                                        <th><?=$count++?></th>
                                         <td><?=$user['lastname']?></td>
                                         <td><?=$user['firstname']?></td>
                                         <td><?=$user['email']?></td>
                                         <td><?=$user['username']?></td>
-                                        <td><?=$user['password']?></td>
+                                        <td class="text-success fw-bold">
+                                        <!-- </?php if(strtolower($user['user_status']) == strtolower('Active')) { ?> -->
+                                        <?= ($user['user_status'] == 1)?'<button class="btn btn-danger status-change" status="0" data-id="'.$user['id'].'" data-toggle="tooltip" data-placement="top" title="Deactivate this employee" id="deactivate"><span class="fas fa-lock"></span></button>':' <button class="btn btn-success status-change" data-id="'.$user['id'].'" status="1" data-toggle="tooltip" data-placement="top" title="Activate this employee "><span class="fas fa-unlock"></span></button>'; ?>
+                                    
+                                        </td>
                                         <td>
-                                            <a class="btn btn-warning" data-bs-toggle="modal" href="#edit" role="button" onclick="getData(`<?=$user['id']?>`,`<?=$user['lastname']?>`,`<?=$user['firstname']?>`,`<?=$user['email']?>`,`<?=$user['username']?>`,`<?=$user['password']?>`)">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                                </svg>
+                                            <a class="btn btn-warning" data-bs-toggle="modal" href="#edit" role="button" onclick="getData(`<?=$user['id']?>`,`<?=$user['lastname']?>`,`<?=$user['firstname']?>`,`<?=$user['email']?>`,`<?=$user['username']?>`,`<?=$user['password']?>`)" data-toggle="tooltip" data-placement="top" title="Edit Employee Detail with id '<?=$user['id']?>'">
+                                                <span class="fas fa-pen"></span>
                                             </a>
                                             <!-- onclick="delete_user('</?= $user['id']?>')" -->
                                             <!-- data-id="</?= $user['id'] ?>" -->
                                             <!-- href="delete_Employee?userid=</?=$user['id']?>" -->
-                                            <button class="btn btn-danger" data-id="<?= $user['id'] ?>" id="delete">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                            <button class="btn btn-danger" data-id="<?= $user['id'] ?>" id="delete" data-toggle="tooltip" data-placement="top" title="Delete this employee with id '<?=$user['id']?>'">
+                                                <span class="fas fa-trash"></span>
+                                            </button>
+                                            <!-- <button class="btn btn-danger" data-id="<?= $user['id'] ?>" id="deactivate">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                                                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
                                                 </svg>
                                             </button>
+                                            <button class="btn btn-primary" data-id="</?= $user['id'] ?>" id="activate">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
+                                                    <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
+                                                </svg>
+                                            </button> -->
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -368,7 +390,7 @@
                         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="post">
+                        <form id="update_form">
                             <div class="input-group mb-3">
                                     <!-- <span class="input-group-text">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
@@ -423,7 +445,7 @@
                                 <input type="password" class="form-control" name="password" placeholder="password" id="password">
                             </div>
                             <div class="input-group mb-3">
-                                <input type="submit" class="form-control btn btn-primary" onclick="updateDetail()" value="Update Employee" id="update">
+                                <input type="button" class="form-control btn btn-primary" onclick="updateDetail()" value="Update Employee">
                             </div>
                         </form>
                     </div>
@@ -488,4 +510,45 @@
                 </div>
             </div>
         </div>
+        <!-- Add files Modal -->
+        <div class="modal fade" id="addfile" aria-hidden="true" aria-labelledby="addfile" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-top shadow-lg">
+                    <div class="modal-header bg-success">
+                        <h5 class="modal-title text-white" id="addfile">Add File</h5>
+                        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+<!-- action="do_upload" method="post" -->
+                    <form id="uploadfile" enctype="multipart/form-data"> 
+                        Select image to upload:
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
+                                    <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
+                                </svg>
+                            </span>
+                            <input type="file" class="form-control" name="userfile" size="20">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                </svg>
+                            </span>
+                            <input type="text" class="form-control" name="name" value="<?=$_SESSION['username']?>">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="submit" class="form-control btn btn-primary" name="add" value="Upload File">
+                        </div>
+                    </form>              
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
 

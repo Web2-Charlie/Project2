@@ -34,6 +34,7 @@ function delete_user(data = {}) {
                         window.location.reload(base_url+'dashboard/index');
                     })
                 }
+        
             }) 
         }
         else{
@@ -114,7 +115,7 @@ function updateDetail() {
                 url: base_url+'dashboard/edit_Profile',
                 type: 'post',
                 // data: {userid:user_id},
-                data:{userid: user_id, lname: lastname, fname: firstname, email: email, uname: username, password: psw},
+                data:{userid: user_id, lname: lastname, fname: firstname, email: email, $uname: username, password: psw},
                 cache: false,
                 async: false,
                 success:function(data) {
@@ -202,65 +203,48 @@ function updateDetail() {
 $(document).ready(function() {
 
     $(document).on('click', '.status-change', function(){
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-                let status = $(this).attr('status');
-                let id = $(this).attr('data-id');
-                let content = status==0?`<button class="btn btn-success status-change" status="1" data-id="${id}" data-toggle="tooltip" data-placement="top" title="Deactivate this employee" id="deactivate"><span class="fas fa-unlock"></span></button>`:`<button class="btn btn-danger status-change" status="0" data-id="${id}" data-toggle="tooltip" data-placement="top" title="Deactivate this employee" id="deactivate"><span class="fas fa-lock"></span></button>`;
-                let data = {id:id, status:status}
-                $(this).parent().prepend(content);
-                $(this).remove();
-                $.ajax({
-                    url: base_url+'dashboard/changeemployeeStatus',
-                    type: 'post',
-                    // data: {userid:user_id},
-                    data: data,
-                    cache: false,
-                    async: false,
-                    dataType: 'json',
-                    success:function(data) {
-                        
-                        if(data.message == 'a'){
-                            Swal.fire(
-                                'Activated!',
-                                'Employee has been Activated.',
-                                'success'
-                                ).then(function(){
-                                window.location.reload(base_url+'dashboard/index');
-                            })
-            
-                        }else{
-                            Swal.fire(
-                                'Deactivated!',
-                                'Employee has been Deactivated.',
-                                'success'
-                                ).then(function(){
-                                window.location.reload(base_url+'dashboard/index');
-                            })
-            
-                        }
-                    
-                    }
-            
-                }) 
-            }
-            else{
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Yeah...',
-                    text: 'Employee file is safe',
-                    // footer: '<a href="">Why do I have this issue?</a>'
+        let status = $(this).attr('status');
+        let id = $(this).attr('data-id');
+
+        let content = status==0?`<button class="btn btn-success status-change" status="1" data-id="${id}" data-toggle="tooltip" data-placement="top" title="Deactivate this employee" id="deactivate"><span class="fas fa-unlock"></span></button>`:`<button class="btn btn-danger status-change" status="0" data-id="${id}" data-toggle="tooltip" data-placement="top" title="Deactivate this employee" id="deactivate"><span class="fas fa-lock"></span></button>`;
+        
+        let data = {id:id, status:status}
+        $(this).parent().prepend(content);
+        $(this).remove();
+
+        $.ajax({
+            url: base_url+'dashboard/changeemployeeStatus',
+            type: 'post',
+            // data: {userid:user_id},
+            data: data,
+            cache: false,
+            async: false,
+            dataType: 'json',
+            success:function(data) {
+                
+                if(data.message == 'a'){
+                    Swal.fire(
+                        'Activated!',
+                        'Employee has been Activated.',
+                        'success'
+                        ).then(function(){
+                        window.location.reload(base_url+'dashboard/index');
                     })
+    
+                }else{
+                    Swal.fire(
+                        'Deactivated!',
+                        'Employee has been Deactivated.',
+                        'success'
+                        ).then(function(){
+                        window.location.reload(base_url+'dashboard/index');
+                    })
+    
+                }
+             
             }
-        })
+    
+        }) 
 
         console.log(status)
         console.log(id)

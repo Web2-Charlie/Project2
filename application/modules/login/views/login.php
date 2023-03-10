@@ -9,6 +9,7 @@
                     <h4 class="lead m-1 p-2 text-center">Login</h4>
                     <div class="card-body">
                         <form action="<?=base_url().'login/loginUser' ?>" method="post">
+                            <input type="text" class="form-control" name="userid" placeholder="username" hidden>
                             <div class="form-row md-12">
                                 <div class="col md-6 lg-6 mt-2 p-2">
                                     <input type="text" class="form-control" name="username" placeholder="username">
