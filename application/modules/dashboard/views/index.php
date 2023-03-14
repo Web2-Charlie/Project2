@@ -26,7 +26,7 @@
                     Analytics
                 
                 </a> -->
-                <a href="attachment" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                <a href="dashboard/view_attachments" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="fas fa-paperclip me-2"></i>
 
                         Attachment
@@ -271,36 +271,6 @@
                         </table>
                     </div>
                 </div>
-                <?php $val = array(860,1140,1060,1060,1070,1110,1330,2210,7830,2478);
-                    $data = array_values($val);
-                ?>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> 
-                <canvas id="myChart" style="width:100%;max-width:1600px;max-height: 1800px;"></canvas>
-                <script>
-                    var xValues = [100,200,300,400,500,600,700,800,900,1000];
-                    new Chart("myChart", {
-                    type: "line",
-                    data: {
-                        labels: xValues,
-                        datasets: [{ 
-                        data: <?php echo json_encode($data) ?>,
-                        borderColor: "red", //Pending Task
-                        fill: false,
-                        },{ 
-                        data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
-                        borderColor: "green", // Completed Task
-                        fill: true
-                        }, { 
-                        data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
-                        borderColor: "blue", //In Progress task
-                        fill: false
-                        }]
-                    },
-                    options: {
-                        legend: {display: false}
-                    }
-                    });
-                </script>
             </div>
    
         </div>
@@ -519,8 +489,8 @@
                         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-<!-- action="do_upload" method="post" -->
-                    <form id="uploadfile" enctype="multipart/form-data"> 
+<!-- action="do_upload" method="post" id="uploadfile"-->
+                    <form action="dashboard/upload_File" method="post" enctype="multipart/form-data"> 
                         Select image to upload:
                         <div class="input-group mb-3">
                             <span class="input-group-text">
@@ -528,7 +498,7 @@
                                     <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
                                 </svg>
                             </span>
-                            <input type="file" class="form-control" name="userfile" size="20">
+                            <input type="file" class="form-control" name="image" size="20">
                         </div>
 
                         <div class="input-group mb-3">
@@ -537,7 +507,7 @@
                                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                                 </svg>
                             </span>
-                            <input type="text" class="form-control" name="name" value="<?=$_SESSION['username']?>">
+                            <input type="text" class="form-control" name="owner" value="<?=$_SESSION['username']?>">
                         </div>
                         <div class="input-group mb-3">
                             <input type="submit" class="form-control btn btn-primary" name="add" value="Upload File">

@@ -226,41 +226,33 @@
                                         <td><?=$user['firstname']?></td>
                                         <td><?=$user['email']?></td>
                                         <td><?=$user['username']?></td>
-                                        <?php if(strtolower($user['user_status']) == strtolower('Active')) { ?>
-                                                <td class="text-success fw-bold"><?=$user['user_status']?></td>
-                                        <?php
-                                            }else { ?>
-                                                <td class="text-danger fw-bold"><?=$user['user_status']?></td>
-                                        <?php
-                                            } ?>
-                                        
                                         <td>
-                                            <a class="btn btn-warning" data-bs-toggle="modal" href="#edit" role="button" onclick="getData(`<?=$user['id']?>`,`<?=$user['lastname']?>`,`<?=$user['firstname']?>`,`<?=$user['email']?>`,`<?=$user['username']?>`,`<?=$user['password']?>`)">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                                </svg>
-                                            </a>
-                                            <!-- onclick="delete_user('</?= $user['id']?>')" -->
-                                            <!-- data-id="</?= $user['id'] ?>" -->
-                                            <!-- href="delete_Employee?userid=</?=$user['id']?>" -->
-                                            <button class="btn btn-danger" data-id="<?= $user['id'] ?>" id="delete">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                                </svg>
-                                            </button>
-                                            <button class="btn btn-danger" data-id="<?= $user['id'] ?>" id="deactivate">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
-                                                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
-                                                </svg>
-                                            </button>
-                                            <button class="btn btn-primary" data-id="<?= $user['id'] ?>" id="activate">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
-                                                    <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
-                                                </svg>
-                                            </button>
+                                            <!-- </?php if(strtolower($user['user_status']) == strtolower('Active')) { ?> -->
+                                            <?= ($user['user_status'] == 1)?'<button class="btn btn-danger status-change" status="0" data-id="'.$user['id'].'" data-toggle="tooltip" data-placement="top" title="Deactivate this employee" id="deactivate"><span class="fas fa-lock"></span></button>':' <button class="btn btn-success status-change" data-id="'.$user['id'].'" status="1" data-toggle="tooltip" data-placement="top" title="Activate this employee "><span class="fas fa-unlock"></span></button>'; ?>
                                         </td>
+                                    
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning" data-bs-toggle="modal" href="#edit" role="button" onclick="getData(`<?=$user['id']?>`,`<?=$user['lastname']?>`,`<?=$user['firstname']?>`,`<?=$user['email']?>`,`<?=$user['username']?>`,`<?=$user['password']?>`)" data-toggle="tooltip" data-placement="top" title="Edit Employee Detail with id '<?=$user['id']?>'">
+                                            <span class="fas fa-pen"></span>
+                                        </a>
+                                        <!-- onclick="delete_user('</?= $user['id']?>')" -->
+                                        <!-- data-id="</?= $user['id'] ?>" -->
+                                        <!-- href="delete_Employee?userid=</?=$user['id']?>" -->
+                                        <button class="btn btn-danger" data-id="<?= $user['id'] ?>" id="delete" data-toggle="tooltip" data-placement="top" title="Delete this employee with id '<?=$user['id']?>'">
+                                            <span class="fas fa-trash"></span>
+                                        </button>
+                                        <!-- <button class="btn btn-danger" data-id="<?= $user['id'] ?>" id="deactivate">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                                                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                                            </svg>
+                                        </button>
+                                        <button class="btn btn-primary" data-id="</?= $user['id'] ?>" id="activate">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
+                                                <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
+                                            </svg>
+                                        </button> -->
+                                    </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

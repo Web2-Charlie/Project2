@@ -31,7 +31,7 @@
             <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                 <i class="fas fa-paperclip me-2"></i>
 
-                    Attachment
+                    
                 
                 </a>
             <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
@@ -67,44 +67,6 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="m-r-20">
-                        <a class="btn btn-primary m-1" data-bs-toggle="modal" href="#exampleModalToggle" role="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                            </svg>
-                            <span>
-
-                                Employee
-
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="btn btn-primary m-1" data-bs-toggle="modal" href="#addtask" role="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                            </svg>
-                            <span>
-
-                                Task
-
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="btn btn-primary m-1" data-bs-toggle="modal" href="#addfile" role="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
-                                <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
-                            </svg>
-                            <span>
-
-                                File
-
-                            </span>
-                        </a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -137,69 +99,78 @@
                 </ul>
             </div>
         </nav>
+        <div id="task" class="container-fluid px-4">
+                <div class="row my-5">
+                    <h3 class="fs-4 mb-3">Tasks</h3>
+                    <div class="col">
+                        <table class="table bg-white rounded shadow-sm  table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date Assigned</th>
+                                    <th scope="col">Task Title</th>
+                                    <th scope="col">Instrcution</th>
+                                    <th scope="col">Assign To</th>
+                                    <th scope="col">ETC</th>
+                                    <th scope="col">Task Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        <?php
+                            foreach($tasks as $task): ?>
+                                <tr id="<?=$task['task_id']?>">
+                                    <?php $c_date = DateTime::createFromFormat('Y-m-d', $task['assign_date']); ?>
+                                    <td><?= $date_created = $c_date->format('M d, Y') ?></td>
+                                    <td><?=$task['task_title']?></td>
+                                    <td><?=$task['task_instruction']?></td>
+                                    <td><?=$task['assign_to']?></td>
+                                    <?php $d_date = DateTime::createFromFormat('Y-m-d', $task['due_date']); ?>
+                                    <td><?=$due_date = $d_date->format('M d, Y') ?></td>
+                                    <?php  if(strtolower($task['task_status']) == strtolower("Pending")) { ?>
 
-        <div id="dashboard" class="container-fluid px-4">
-            <div class="row g-3 my-2">
-                <div class="col-md-3">
-                    <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                        <div>
-                            <h3 class="fs-2">0</?php echo count($users); ?></h3>
-                            <p class="fs-5">
-                                
-                                Employees
-                            
-                            </p>
-                        </div>
-                        <i class="fas fa-user-friends primary-text border rounded-full secondary-bg p-3"></i>
-                    </div>
-                </div>
+                                            <td class="text-warning fw-bold"><?=$task['task_status']?></td>
 
-                <div class="col-md-3">
-                    <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                        <div>
-                            <h3 class="fs-2">
-                                0
-                            </h3>
-                            <p class="fs-5">
+                                    <?php 
+                                        }
+                                        elseif(strtolower($task['task_status']) == strtolower("In Progress")) { ?>
 
-                                Finish Task
+                                            <td class="text-primary fw-bold"><?=$task['task_status']?></td>
 
-                            </p>
-                        </div>
-                        <i
-                            class="fas fa-tasks primary-text border rounded-full secondary-bg p-3"></i>
-                    </div>
-                </div>
+                                    <?php 
+                                        }
+                                        elseif(strtolower($task['task_status']) == strtolower("Break")) { ?>
 
-                <div class="col-md-3">
-                    <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                        <div>
-                            <h3 class="fs-2">0.00</h3>
-                            <p class="fs-5">
-                                
-                                Income
-                            
-                            </p>
-                        </div>
-                        <i class="fas fa-wallet primary-text border rounded-full secondary-bg p-3"></i>
-                    </div>
-                </div>
+                                            <td class="text-danger fw-bold"><?=$task['task_status']?></td>
 
-                <div class="col-md-3">
-                    <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                        <div>
-                            <h3 class="fs-2">0%</h3>
-                            <p class="fs-5">
-                                
-                                Increase
-                            
-                            </p>
-                        </div>
-                        <i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                                        <?php 
+                                        }
+                                     else { ?>
+
+                                        <td class="text-success fw-bold"><?=$task['task_status']?></td>
+
+                                    <?php } ?>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                                </svg>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item text-primary fw-bold" href="inProgress?taskid=<?=$task['task_id']?>">In Progress</a></li>
+                                                <li><a class="dropdown-item text-danger fw-bold" href="break?taskid=<?=$task['task_id']?>">Break</a></li>
+                                                <li><a class="dropdown-item text-success fw-bold" href="for_QA?taskid=<?=$task['task_id']?>">For QA</a></li>
+                                            </ul>
+                                            </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 <!-- </?php echo $_SESSION['userid'] ?> -->

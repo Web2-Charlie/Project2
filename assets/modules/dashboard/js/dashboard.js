@@ -319,24 +319,47 @@ function activate_Employee(data = {}) {
 
 $(document).on('submit', '#uploadfile',function(e){
     e.preventDefault()
-    var data = new FormData($(this)[0])
-    uploaddisfile(data)
-    // console.log(data);
+    var data = new FormData($(this)[0]);
+    //uploaddisfile(data)
+     console.log(data);
 })
-function uploaddisfile(data = {}){
+// function uploaddisfile(data = {}){
+//     $.ajax({
+//         // url: base_url+'dashboard/do_upload',
+//         // type: 'post',
+//         data: data,
+//         cache: false,
+//         async: false,
+//         processData: false,
+//         contentType: false,
+//         success:function(response) {
+//             console.log(response)
+//         },
+//         error: function(error){
+//             console.log(error)
+//         }
+//     })
+// }
+
+$(document).ready(function() {
+    $(document).on('click', '#inprogress', function(){
+        console.log('test')
+        var id = $(this).attr('data-id')
+        //console.log(id);
+        //inProgress_Task({taskid: id})
+    })
+})
+
+function inProgress_Task(data = {}) {
     $.ajax({
-        url: base_url+'dashboard/do_upload',
+        url: base_url+'home/inProgress',
         type: 'post',
+        // data: {userid:user_id},
         data: data,
         cache: false,
         async: false,
-        processData: false,
-        contentType: false,
-        success:function(response) {
-            console.log(response)
-        },
-        error: function(error){
-            console.log(error)
+        success:function(data) { 
+            window.location.reload(base_url+'home/index');
         }
-    })
+    }) 
 }
